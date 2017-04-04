@@ -1,0 +1,45 @@
+extends layout
+
+block content
+    //h1= title
+    //p #{title}
+    //button#btnSubmit(type="submit", action="/eanlist") Back
+
+    div(id="test")
+    h1. 
+
+    body
+    h2.sub-header Product List
+    
+    .table-responsive
+      table#example.table.table-striped.table-bordered(cellspacing='0', width='100%')
+        thead
+          tr
+            th Code
+            th Product description
+            th Scan time
+
+ 
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js')
+    script(src='//code.jquery.com/jquery-1.12.4.js')
+    script(src='https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js')
+    script(src='https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css')
+    script.
+      $(document).ready(function() {
+        $('#example').DataTable({
+          "processing": true,
+          "serverSide": true,
+          "ajax": {
+            "url": "/inventory",
+            "dataType": "jsonp"
+          }
+        });
+      });
+    
+    script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    script(src='https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css')
+    script(src='https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js')
+
+
+
+
