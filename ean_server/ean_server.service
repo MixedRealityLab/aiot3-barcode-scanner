@@ -1,0 +1,13 @@
+[Unit]
+Description=barcode scanner service
+After=network.target
+
+[Service]
+User=root
+Restart=always
+RestartSec=3
+
+ExecStart=/usr/local/bin/node /home/pi/aiot/ean_server/bin/www
+
+[Install]
+WantedBy=multi-user.target

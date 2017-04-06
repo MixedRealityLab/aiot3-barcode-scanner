@@ -1,7 +1,18 @@
-extends layout
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+    //link(rel='stylesheet', href='/bootstrap/css/bootstrap-responsive.min.css')
+    script(src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js")
+    script(src="/bootstrap/js/bootstrap.min.js")
+    script(src="/javascripts/jquery-3.2.0.min.js")
+    script(src="/javascripts/reload.js")
+    
 
+  body(onload='JavaScript:AutoRefresh(3000);')
 
-block content
   div(id="test")
     h1.
 
@@ -24,6 +35,8 @@ block content
               - var eanSelected=mongo_result.codenumber
               input#eanID.form-control(type="hidden", name="id", value=mongo_result.codenumber)
               td=mongo_result.products.description
+              //each time, i in mongo_result.timestamp
+                //td=moment(time).format("DD/MM/YY/HH:mm")
               - for (var x = mongo_result.timestamp.length-1; x > -1; x--)
                 td=moment(mongo_result.timestamp[x]).format("DD/MM/YY/HH:mm")
 

@@ -1,11 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var app = express();
+//var app = express();
 var request = require('request');
-var https = require('https');
-var bodyParser = require('body-parser');
+//var https = require('https');
+//var bodyParser = require('body-parser');
 var moment = require('moment');
-const util = require('util')
+//const util = require('util')
 
 var eanSelected = 0;
 var db = require('./db.js');
@@ -31,21 +31,32 @@ router.post('/addean', function(req, res) {
 });
 
 
-
 /* GET New inventory lis page.--- just for test -- */
+/*
 router.get('/inventory', function(req, res) {
     var db = req.db;       //definicion de app.js 
     var collection = db.get('eanCollection'); 
-    collection.find({},{},function(e,docs){
-        //console.log('***1:',docs);
-        console.log('# docs:',docs.length);
-        //console.log('**codenumber:', docs.codetype);
-        //res.render('eanlist', { "eanlist" : docs, moment: moment}); //original without success
-        res.render('inventory', { "inventory" : docs, moment: moment});
-
+    collection.find({},{sort : {timestamp: -1}},function(e,docs){
+        //res.json(docs); 
+        console.log(req.body);
+        //res.render('inventory',docs);
+        res.send(docs);
+        //res.status(200).json(docs);
+    });
 });
-});
+*/
 
+router.get('/inventory', function(req, res){
+  request({
+    url: 'http://localhost:3000/inventory',
+    json: true
+  }, function (error, response, body) {
+      if (!error && response.statusCode === 200) {
+        //console.log(body) // Print the json response
+        res.send(body) 
+    }
+  })
+});
 
 
 
@@ -55,7 +66,8 @@ router.get('/eanlist', function(req, res) {
     var db = req.db;		//definicion de app.js 
     var collection = db.get('eanCollection'); 
 
-    collection.find({},{},function(e,docs){
+
+    collection.find({},{sort : {timestamp: -1}},function(e,docs){
         //console.log('***1:',docs);
         console.log('# docs:',docs.length);
         //console.log('**codenumber:', docs.codetype);
@@ -63,6 +75,7 @@ router.get('/eanlist', function(req, res) {
         res.render('eanlist', { "eanlist" : docs, moment: moment, success: true});
 
 });
+
 });    
 
 
@@ -127,8 +140,8 @@ function storeData(eancode,jsonBody){
     var dataCollection = {
         "codenumber": eanCode, 
         "codetype": 'EAN-13', 
-        "timestamp": [new Date()], // o new Date().valueOf(), 
-        //"timestamp": new Date().getTime(),
+        "timestamp": [new Date()], // original
+        //"timestamp": [new ISODate()],
         "products": collectionDocument.products[0]
     };
     
