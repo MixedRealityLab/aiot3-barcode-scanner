@@ -1,6 +1,7 @@
 var HID = require('node-hid');
 var connectedHidDevices = getHID();
 var request = require('request');
+var sleep = require('sleep');
 var success = false;
 
 
@@ -30,7 +31,8 @@ while (!success){
         		console.log('scanner error', error); // easily consumed data format!
         		success = false;
         		status = 'OFF'
-        		setTimeout(function() {console.log('waiting for connection . . . ');}, 3000);
+        		//setTimeout(function() {console.log('waiting for connection . . . ');}, 3000);
+        		sleep.sleep(8);
         		getBarcodeScanner(success);
          	});
 	        status =  'ON';
@@ -43,9 +45,7 @@ while (!success){
 	    	
 	    	status =  'OFF';
 	        console.log('STATUS BARCODE:',status);
-	    	setTimeout(function() {
-			    //console.log('waiting for connection . . . ');
-			}, 3000);
+	    	sleep.sleep(8);
 			success = false;
 			//var connectedHidDevices = getHID();
 	    	
@@ -54,7 +54,8 @@ while (!success){
 	} catch (err) {
 	    status =  'OFF';
 	    success =  false;
-	    setTimeout(function() {console.log('waiting for connection . . . ');}, 3000);
+	    //setTimeout(function() {console.log('waiting for connection . . . ');}, 3000);
+	   	sleep.sleep(8);
 	   	getBarcodeScanner(success);
 	    console.log('there was an error:',err);
 	}
@@ -77,9 +78,11 @@ function setBarcodeData(data, scantime){
 	// Configure the request
 	var options = {
 	    url: 'http://localhost:3000/addean',
+	    //url: 'http://localhost:3000/public/javascripts/global.js',
 	    method: 'POST',
 	    headers: headers,
 	    form: {'eancode': data}
+	    //form: {populateTable()}
 
 	}
 	console.log(options);

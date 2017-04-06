@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "node-hid": "^0.5.4",
-    "node-hid-stream": "0.0.2"
+    "node-hid-stream": "0.0.2",
+    "sleep": "^5.1.0"
   }
 }
