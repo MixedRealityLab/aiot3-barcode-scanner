@@ -7,7 +7,7 @@ User=root
 Restart=always
 RestartSec=3
 
-ExecStart=/usr/local/bin/node /home/pi//aiot/barcode_scanner/app.js
+ExecStart=/usr/bin/node /home/pi/aiot_barcode_scanner/barcode_scanner/app.js
 
 [Install]
 WantedBy=multi-user.target

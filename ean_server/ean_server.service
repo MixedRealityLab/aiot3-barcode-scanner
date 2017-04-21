@@ -7,7 +7,7 @@ User=root
 Restart=always
 RestartSec=3
 
-ExecStart=/usr/local/bin/node /home/pi/aiot/ean_server/bin/www
+ExecStart=/usr/bin/node /home/pi/aiot_barcode_scanner/ean_server/bin/www
 
 [Install]
 WantedBy=multi-user.target

@@ -23,6 +23,7 @@ router.post('/addean', function(req, res) {
     // Set our internal DB variable
     var db = req.db;
     var eanCode = req.body.eancode;
+    console.log('eanCode received:',eanCode); //new line
     var collection = db.get('eanCollection');
     var eanSelected = eanCode;//'0'+ eanCode;
     var collectionDocument = connectTesco(eanSelected);

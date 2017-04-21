@@ -7,7 +7,7 @@ var success = false;
 
 function getHID(){
     devices = HID.devices();
-    console.log('devices:',  devices);
+    //console.log('devices:',  devices);
     return devices
 }
 
@@ -22,6 +22,7 @@ while (!success){
 	        var KeyboardLines = require('node-hid-stream').KeyboardLines;
 	        var lines = new KeyboardLines({ vendorId: connectedHidDevices[0].vendorId, productId: connectedHidDevices[0].productId});
 	        var scantime = 0;
+	        //console.log('devices:',  devices);
 	        lines.on('data', (data) => {
 	            scantime = scantime + 1;
 	            setBarcodeData(data,scantime);
@@ -67,8 +68,8 @@ while (!success){
 
 /* function to set data from barcode scanner and send to the database, counting the scannig time. */
 function setBarcodeData(data, scantime){
-    console.log(scantime);
-    console.log(data);
+    //console.log(scantime);
+    //console.log(data);
     // Set the headers
 	var headers = {
 	    'User-Agent':       'Super Agent/0.0.1',
@@ -85,7 +86,7 @@ function setBarcodeData(data, scantime){
 	    //form: {populateTable()}
 
 	}
-	console.log(options);
+	//console.log('**options:**',options);
 	// Start the request
 	request(options, function (error, response, body) {
 	    if (!error && response.statusCode == 200) {
@@ -110,9 +111,14 @@ main();
 //var result = getBarcodeScanner();
 
 
+//function to close
+
+process.on('SIGINT', function() {
+    console.log("Caught interrupt signal");
+    process.exit(0);
+});
+
 /*
-
-
 try
 if !connected && device is in devices array then 
 	connct to device
